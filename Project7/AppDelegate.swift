@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let vc = storyboard.instantiateViewController(withIdentifier: "NavController")
             vc.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 1)
             tabBarController.viewControllers?.append(vc)
-            
         }
         return true
     }

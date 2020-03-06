@@ -15,13 +15,20 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(openTapped))
+          
+          
+       @objc func openTapped() {
+              let ac = UIAlertController(title: "Credit", message: "These petitions have been bought to you from the 'We The People API", preferredStyle: .alert)
+              ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
         //        Creat the url variable and assign the URL to it.
         
         let urlString: String
         
         if navigationController?.tabBarItem.tag == 0{
             
-            let urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
+            urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
             
         } else {
             urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
@@ -32,9 +39,16 @@ class ViewController: UITableViewController {
             if let data = try? Data(contentsOf: url){
                 //        Contents of creates a new Data object which returns content from the URL. Using try? will stop any       faults if the internet connection is down, or slow.
                 parse(json: data)
+                return
             }
         }
-        
+        showError() 
+    }
+    
+    func showError() {
+        let ac = UIAlertController(title: "Loading Error", message: "Feed couldn't be loaded,Please try again.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(ac, animated: true)
     }
     
     func parse(json: Data){
